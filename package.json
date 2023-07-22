@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node index.js",
-    "dev": "dotenv-load nodemon ./bin/www"
+    "start": "dotenv-load nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
