@@ -17,5 +17,6 @@ router.post('/login', AuthController.login);
 /* API */
 router.post('/usergame/get', AuthorizationCheck, UserGameController.getData);
 router.post('/usergame/insert', UserGameController.insertData);
+router.get('/allusergame/get', UserGameController.getAllData);
 
 module.exports = router;
