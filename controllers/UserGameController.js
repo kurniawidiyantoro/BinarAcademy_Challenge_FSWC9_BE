@@ -1,4 +1,5 @@
 const { userGameModel } = require('../models/UserGameModel')
+const CryptoJS = require('crypto-js');
 
 class UserGameController {
     static async getAllData(req, res) {
@@ -37,6 +38,9 @@ class UserGameController {
 
             const inputUserName = data.username;
             const inputEmail = data.email
+            const inputPassword = data.password;
+            const inputConfirmPassword = data.confirmPassword;
+            const inputScores = data.scores;
             
             // check duplicate email
             const existingEmail = await userGameModel.checkDuplicateEmail(inputEmail);
@@ -54,7 +58,22 @@ class UserGameController {
                 return res.status(400).json({ message: 'Username Already Exists !' });
             }
 
-            await userGameModel.insertNewUserGame(data);
+            // check password and confirmPassword
+            if (inputPassword !== inputConfirmPassword) {
+                console.log('Password and Confirm Password Does Not Match !');
+                return res.status(400).json({ message: 'Password and Confirm Password Does Not Match !' });
+            }
+
+            const hashedPassword = CryptoJS.HmacSHA256(inputPassword, process.env.SECRET_LOGIN).toString();
+
+            const newData = {
+                username: inputUserName,
+                email: inputEmail,
+                password: hashedPassword,
+                scores: inputScores
+            }
+
+            await userGameModel.insertNewUserGame(newData);
             res.json({ status: 'success' });
         } catch(error) {
             console.log(error);

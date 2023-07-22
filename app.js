@@ -10,7 +10,13 @@ var swaggerui = require('swagger-ui-express')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const cors = require('cors');
+
 var app = express();
+
+app.use(cors({
+  origin: '*'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
