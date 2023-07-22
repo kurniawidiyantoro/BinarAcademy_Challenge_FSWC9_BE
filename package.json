@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "dotenv-load node ./bin/www",
+    "start": "node ./bin/www",
     "dev": "dotenv-load nodemon ./bin/www"
   },
   "dependencies": {
