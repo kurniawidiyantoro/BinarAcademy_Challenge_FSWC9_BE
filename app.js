@@ -14,6 +14,8 @@ const cors = require('cors');
 
 var app = express();
 
+const { FirebaseController } = require('./controllers/FirebaseController');
+
 app.use(cors({
   origin: '*'
 }));

@@ -70,6 +70,55 @@ class UserGameModel {
         const data = await this.#model.create(newdata);
         return data;
     }
+
+    async updateUserProfile(id, newUsername, newEmail) {
+        const userData = await this.#model.findOne({
+            where: {
+                id
+            }
+        });
+
+        if (userData) {
+            userData.username = newUsername;
+            userData.email = newEmail;
+            await userData.save();
+            return userData;
+        } else {
+            throw new Error('User not found.');
+        }
+    }
+
+    async updateUserPassword(id, newPassword) {
+        const userData = await this.#model.findOne({
+            where: {
+                id
+            }
+        });
+
+        if (userData) {
+            userData.password = newPassword;
+            await userData.save();
+            return userData;
+        } else {
+            throw new Error('User not found.');
+        }
+    }
+
+    async updateUserScores(id, newScores) {
+        const userData = await this.#model.findOne({
+            where: {
+                id
+            }
+        });
+
+        if (userData) {
+            userData.scores = parseInt(newScores);
+            await userData.save();
+            return userData;
+        } else {
+            throw new Error('User not found.');
+        }
+    }
 };
 
 const userGameModel = new UserGameModel();
