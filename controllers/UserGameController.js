@@ -80,6 +80,74 @@ class UserGameController {
             res.status(500).send('Internal Server Error!');
         }  
     }
+
+    static async updateProfile(req, res) {
+        try {
+            // 1. ambil semua data user game
+            const id = req.body.id;
+            const username = req.body.username;
+            const email = req.body.email;
+
+            // check duplicate email
+            const existingEmail = await userGameModel.checkDuplicateEmail(email);
+
+            // check duplicate username
+            const existingUsername = await userGameModel.checkDuplicateUsername(username);
+
+            if (existingEmail) {
+                console.log('Email Already Exists !');
+                return res.status(400).json({ message: 'Email Already Exists !' });
+            }
+
+            if (existingUsername) {
+                console.log('Username Already Exists !');
+                return res.status(400).json({ message: 'Username Already Exists !' });
+            }
+
+            const newData = await userGameModel.updateUserProfile(id, username, email);
+            res.json({ newData, status: 'Success Update Profile !' });
+        } catch(error) {
+            console.log(error);
+            res.status(500).send('Internal Server Error!');
+        }  
+    }
+
+    static async updatePassword(req, res) {
+        try {
+            // 1. ambil semua data user game
+            const id = req.body.id;
+            const newPassword = req.body.newPassword;
+            const confirmNewPassword = req.body.confirmNewPassword;
+
+            // check password and confirmPassword
+            if (newPassword !== confirmNewPassword) {
+                console.log('Password and Confirm Password Does Not Match !');
+                return res.status(400).json({ message: 'Password and Confirm Password Does Not Match !' });
+            }
+
+            const newHashedPassword = CryptoJS.HmacSHA256(newPassword, process.env.SECRET_LOGIN).toString();
+
+            const newData = await userGameModel.updateUserPassword(id, newHashedPassword);
+            res.json({ newData, status: 'Success Update Password !' });
+        } catch(error) {
+            console.log(error);
+            res.status(500).send('Internal Server Error!');
+        }  
+    }
+
+    static async updateScores(req, res) {
+        try {
+            // 1. ambil semua data user game
+            const id = req.body.id;
+            const scores = req.body.scores;
+
+            const newData = await userGameModel.updateUserScores(id, scores);
+            res.json({ newData, status: 'Success Update Scores !' });
+        } catch(error) {
+            console.log(error);
+            res.status(500).send('Internal Server Error!');
+        }  
+    }
 };
 
 module.exports = { UserGameController }
