@@ -16,9 +16,10 @@ var app = express();
 
 const { FirebaseController } = require('./controllers/FirebaseController');
 
-app.use(cors({
-  origin: '*'
-}));
+// app.use(cors({
+//   origin: '*'
+// }));
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
