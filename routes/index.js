@@ -16,12 +16,12 @@ router.post('/login', AuthController.login);
 
 /* API */
 router.post('/usergame/insert', UserGameController.insertData);
-router.post('/usergame/upload-profile-pic', FirebaseController.uploadImage);
+router.post('/usergame/upload-profile-pic', FirebaseController.FirebaseController.uploadImage);
 router.post('/usergame/get', AuthorizationCheck, UserGameController.getData);
 router.post('/usergame/update/profile', AuthorizationCheck, UserGameController.updateProfile);
 router.post('/usergame/update/password', AuthorizationCheck, UserGameController.updatePassword);
 router.post('/usergame/update/scores', AuthorizationCheck, UserGameController.updateScores);
-router.post('/usergame/getProfilePicUrl', AuthorizationCheck, FirebaseController.getProfilePicUrl);
+router.post('/usergame/getProfilePicUrl', AuthorizationCheck, FirebaseController.FirebaseController.getProfilePicUrl);
 
 
 module.exports = router;
