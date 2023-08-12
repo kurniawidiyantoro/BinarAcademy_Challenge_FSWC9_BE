@@ -94,4 +94,4 @@ class FirebaseController {
   
 }
 
-module.exports = {FirebaseController} ;
+exports.FirebaseController = FirebaseController ;
