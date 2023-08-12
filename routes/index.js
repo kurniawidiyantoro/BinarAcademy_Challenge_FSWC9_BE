@@ -4,7 +4,7 @@ var router = express.Router();
 // import controller
 const { UserGameController } = require('../controllers/UserGameController');
 const { AuthController } = require('../controllers/AuthController');
-const { FirebaseController } = require('../controllers/FirebaseController');
+const FirebaseController  = require('../controllers/FirebaseController');
 // import middleware
 const { AuthorizationCheck } = require('../lib/AuthorizationCheck');
 
